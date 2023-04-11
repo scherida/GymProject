@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
-// const autoIncrement = require('mongoose-auto-increment');
 
 const treinoSchema = new mongoose.Schema({
   nome: String,
   duracao: String,
   exercicios: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Exercicio' }],
+  usuario : { type: mongoose.Schema.Types.ObjectId, ref: 'usuario' }
 });
-
-// treinoSchema.plugin(autoIncrement.plugin, { model: 'Treino', field: 'id' });
 
 const Treino = mongoose.model('Treino', treinoSchema);
 

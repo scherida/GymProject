@@ -7,23 +7,15 @@ class usuarioController {
         res.json(resultado);
     }
 
-    async createUsuario(req, res) {  
-        try{
-            const conteudo = req.body;
-            const resultado = usuarioModel.create(conteudo);          
-            res.json(resultado);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('CPF já registrado no sistema!');
-        }      
+    async createUsuario(req, res) { 
+        const usuario = req.body;
+        const max = await usuarioModel.findOne({}).sort({codigo: -1});
+        usuario.codigo = max == null ? 1 : max.codigo + 1;
+        console.log(usuario);
+        const resultado = await usuarioModel.create(usuario);
+        res.status(201).json(resultado);    
     }
 
-    async excluirUsuario(req, res){
-        const id = req.params.id;
-        const filtro = {'id': id};
-        await usuarioModel.findByIdAndDelete(filtro);
-        res.send("Conteúdo excluído!");
-    }
 }
 
 module.exports = new usuarioController();
