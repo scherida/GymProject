@@ -14,8 +14,20 @@ class usuarioController {
         console.log(usuario);
         const resultado = await usuarioModel.create(usuario);
         res.status(201).json(resultado);    
-    }
+    }    
 
+    async buscarPorCodigo(req, res){
+        const codigo = req.params.codigo;
+        const resultado = await usuarioModel.findOne({'codigo': codigo});
+        res.status(200).json(resultado);
+      }
+    
+    async excluirUsuario(req, res){
+        const codigo = req.params.codigo;
+        const _id = String((await usuarioModel.findOne({'codigo': codigo}))._id);
+        await usuarioModel.findByIdAndRemove(String(_id));
+        res.status(200).send();    
+    }
 }
 
 module.exports = new usuarioController();
