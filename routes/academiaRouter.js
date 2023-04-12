@@ -7,6 +7,6 @@ routes.get('/usuarios', usuarioController.listarUsuarios);
 // routes.get('/usuarios/:id', usuarioController.buscarUsuario);
 routes.post('/usuarios', usuarioController.createUsuario);
 // routes.put('/usuarios/:id', usuarioController.atualizarUsuario);
-routes.delete('/usuarios/:idUsuario', usuarioController.excluirUsuario);
+// routes.delete('/usuarios/:idUsuario', usuarioController.excluirUsuario);
 
 module.exports = routes;
