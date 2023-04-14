@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const usuarioSchema = new mongoose.Schema({
+const UsuarioSchema = new Schema({
   codigo: Number,
   cpf: {
+    type: String,
+    required: true
+  },
+  nomeUsuario: {
     type: String,
     required: true
   },
@@ -24,15 +29,12 @@ const usuarioSchema = new mongoose.Schema({
   },
   dataInicio: {
     type: Date,
-    required: true,
-    default: Date.now()
+    required: true
   },
   treinos: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Treino'
+    ref: 'treino'
   }]
 });
 
-const Usuario = mongoose.model('Usuario', usuarioSchema);
-
-module.exports = Usuario;
+module.exports = mongoose.model('usuario', UsuarioSchema);

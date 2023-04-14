@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
-// const autoIncrement = require('mongoose-auto-increment');
+const Schema = mongoose.Schema;
 
-const aparelhoSchema = new mongoose.Schema({
+const AparelhoSchema = new Schema({
   nome: String,
   descricao: String,
 });
 
-// aparelhoSchema.plugin(autoIncrement.plugin, { model: 'Aparelho', field: 'id' });
-
-const Aparelho = mongoose.model('Aparelho', aparelhoSchema);
-
-module.exports = Aparelho;
+module.exports = mongoose.model('aparelho', AparelhoSchema);

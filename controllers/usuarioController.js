@@ -1,24 +1,41 @@
 const usuarioModel = require('../models/usuario');
+const treinoModel = require('../models/treino');
 
-class usuarioController {
+class UsuarioController {
 
     async listarUsuarios(req, res){
-        const resultado = await usuarioModel.find({}, {_id:0, __v:0});
+        const resultado = await usuarioModel.find({}, {_id:0, __v:0})
+        .populate('treinos',{_id:0, __v:0});
         res.json(resultado);
     }
 
     async createUsuario(req, res) { 
         const usuario = req.body;
-        const max = await usuarioModel.findOne({}).sort({codigo: -1});
-        usuario.codigo = max == null ? 1 : max.codigo + 1;
-        console.log(usuario);
-        const resultado = await usuarioModel.create(usuario);
-        res.status(201).json(resultado);    
-    }    
+        const codigosDosTreinos = usuario.treinos;
 
+        const obj = await usuarioModel.findOne({}).sort({'codigo': -1});
+        usuario.codigo = obj == null ? 1 : obj.codigo + 1;
+
+        if (codigosDosTreinos != null && codigosDosTreinos != undefined 
+            && codigosDosTreinos != '' && codigosDosTreinos.length > 0){
+                usuario.treinos = await treinoModel.find({'codigo': {$in: codigosDosTreinos}});
+            }
+
+        const resultado = await usuarioModel.create(usuario);
+        res.json(resultado); 
+    }
+   
+    async atualizarUsuario(req, res){
+        const codigo = req.params.codigo;
+        const usuario = req.body;
+
+        const resultado = await usuarioModel.findOneAndUpdate({'codigo': codigo}, usuario, {new: true});
+        res.json(resultado);
+    }
+      
     async buscarPorCodigo(req, res){
         const codigo = req.params.codigo;
-        const resultado = await usuarioModel.findOne({'codigo': codigo});
+        const resultado = await usuarioModel.findOne({'codigo': codigo}, {_id:0});
         res.status(200).json(resultado);
       }
     
@@ -30,4 +47,4 @@ class usuarioController {
     }
 }
 
-module.exports = new usuarioController();
+module.exports = new UsuarioController();

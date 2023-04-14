@@ -1,15 +1,28 @@
 const mongoose = require('mongoose');
-// const autoIncrement = require('mongoose-auto-increment');
+const Schema = mongoose.Schema;
 
-const exercicioSchema = new mongoose.Schema({
-  nome: String,
-  serie: Number,
-  repeticao: Number,
-  carga: Number,
+const ExercicioSchema = new Schema({
+  codigo: Number,
+  nomeExercicio: {
+    type: String,
+    required: true
+  },
+  serie: {
+    type: Number,
+    required: true
+  },
+  repeticao: {
+    type: Number,
+    required: true
+  },
+  carga: {
+    type: Number,
+    required: true
+  },
+  aparelho : { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'aparelho' 
+  }
 });
 
-// exercicioSchema.plugin(autoIncrement.plugin, { model: 'Exercicio', field: 'id' });
-
-const Exercicio = mongoose.model('Exercicio', exercicioSchema);
-
-module.exports = Exercicio;
+module.exports = mongoose.model('exercicio', ExercicioSchema);

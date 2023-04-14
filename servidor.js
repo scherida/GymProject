@@ -12,5 +12,5 @@ servidor.get('/', function(req, res){
 });
 
 servidor.listen(3022, function(){
-    console.log('Servidor rodando na porta 3021...');
+    console.log('Servidor rodando na porta 3022...');
 });
