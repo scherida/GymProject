@@ -38,6 +38,12 @@ class ExercicioController {
 
         const exercicioSalvo = await exercicioModel.create(exercicioNovo);
     
+        if (codigoDoTreino != null && codigoDoTreino != 'undefined' && codigoDoTreino != ''){
+            const treino = await treinoModel.findOne({'codigo': codigoDoTreino});
+            treino.exercicios.push(exercicioSalvo);
+            await treinoModel.findOneAndUpdate({'codigo': treino.codigo}, treino);
+          }
+        
         const resultado = await exercicioModel.findOne({'codigo': exercicioSalvo.codigo}, {_id:0, __v:0})
             .populate('aparelho',{_id:0, __v:0});
         res.json(resultado);
