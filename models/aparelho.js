@@ -2,8 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AparelhoSchema = new Schema({
-  nome: String,
-  descricao: String,
+  codigo: Number,
+  nomeAparelho: {
+    type: String,
+    required: true
+  },
+  descricao: {
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model('aparelho', AparelhoSchema);

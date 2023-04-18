@@ -22,6 +22,10 @@ const ExercicioSchema = new Schema({
   aparelho : { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'aparelho' 
+  },
+  treino : { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'treino' 
   }
 });
 

@@ -1,5 +1,6 @@
 const treinoModel = require('../models/treino');
 const usuarioModel = require('../models/usuario');
+const exercicioModel = require('../models/exercicio');
 
 class TreinoController {
 
@@ -12,6 +13,7 @@ class TreinoController {
     async criarTreino(req, res) {            
         const treinoNovo = req.body;
         const codigoDoUsuario = treinoNovo.usuario;
+        const codigoDoExercicio = treinoNovo.exercicios;
 
         //Gerador de novo código
         const obj = await treinoModel.findOne({}).sort({'codigo': -1});
@@ -30,6 +32,12 @@ class TreinoController {
           const usuario = await usuarioModel.findOne({'codigo': codigoDoUsuario});
           usuario.treinos.push(treinoSalvo);
           await usuarioModel.findOneAndUpdate({'codigo': usuario.codigo}, usuario);
+        }
+
+        //Vincula os exercicios ao treino
+        if (codigoDoExercicio != null && codigoDoExercicio != undefined 
+            && codigoDoExercicio != '' && codigoDoExercicio.length > 0){
+                treinoNovo.exercicios = await exercicioModel.find({'codigo': {$in: codigoDoExercicio}});
         }
         
         //Necessário para evitar a referência circular.

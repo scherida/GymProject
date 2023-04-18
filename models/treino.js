@@ -13,7 +13,7 @@ const TreinoSchema = new Schema({
   },
   exercicios: [{ 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'treino' 
+    ref: 'exercicio' 
   }],
   usuario : { 
     type: mongoose.Schema.Types.ObjectId, 

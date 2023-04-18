@@ -37,7 +37,7 @@ class UsuarioController {
         const codigo = req.params.codigo;
         const resultado = await usuarioModel.findOne({'codigo': codigo}, {_id:0});
         res.status(200).json(resultado);
-      }
+    }
     
     async excluirUsuario(req, res){
         const codigo = req.params.codigo;
