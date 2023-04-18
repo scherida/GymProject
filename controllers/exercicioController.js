@@ -36,12 +36,6 @@ class ExercicioController {
             exercicioNovo.treino = await treinoModel.findOne({'codigo': codigoDoTreino});
         }
 
-        //Vincula treino ao usuario
-        if (codigoDoExercicio != null && codigoDoExercicio != undefined 
-            && codigoDoExercicio != '' && codigoDoExercicio.length > 0){
-                treinoNovo.exercicios = await exercicioModel.find({'codigo': {$in: codigoDoExercicio}});
-        }
-
         const exercicioSalvo = await exercicioModel.create(exercicioNovo);
     
         const resultado = await exercicioModel.findOne({'codigo': exercicioSalvo.codigo}, {_id:0, __v:0})
