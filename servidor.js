@@ -1,10 +1,12 @@
 require('./db/mongo');
 const express = require('express');
+const cors = require('cors');
 const servidor = express();
 servidor.use(express.json());
 
 //Rotas
 const academiaRouter = require('./routes/academiaRouter');
+servidor.use(cors());
 servidor.use('/academia', academiaRouter);
 
 servidor.get('/', function(req, res){    

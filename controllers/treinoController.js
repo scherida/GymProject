@@ -6,7 +6,8 @@ class TreinoController {
 
     async listarTreino(req, res){
         const treinos = await treinoModel.find({}, {_id:0, __v:0})
-              .populate('usuario',{_id:0, __v:0});
+              .populate('usuario',{_id:0, __v:0})
+              .populate('exercicios',{_id:0, __v:0});
         res.json(treinos);
     }
 

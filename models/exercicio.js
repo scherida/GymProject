@@ -17,7 +17,7 @@ const ExercicioSchema = new Schema({
   },
   carga: {
     type: Number,
-    required: true
+    required: false
   },
   aparelho : { 
     type: mongoose.Schema.Types.ObjectId, 
